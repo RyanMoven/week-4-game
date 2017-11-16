@@ -1,50 +1,89 @@
-	$(document).ready(function(){
-
-// Random number for the player's target score
-	function scoreBoard(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min; //max value inclusive
-}
-	 var targetScore = scoreBoard(19, 120);
+var targetScore = Math.floor((Math.random()*101) + 19);
 
 // Random number for ruby
-function rngRuby(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min; 
-}
-	 var ruby = rngRuby(1, 12);
+var ruby = Math.floor((Math.random()*12) + 1);
 
 // Random number for diamond
-	 function rngDiamond(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min; 
-}
-	 var diamond = rngDiamond(1, 12);
+var diamond = Math.floor((Math.random()*12) + 1);
 
 // Random numbr for topaz
-function rngTopaz(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min; 
-}
-	 var topaz = rngTopaz(1, 12);
+var topaz = Math.floor((Math.random()*12) + 1);
 
-// Random number for Emerald
-function rngEmerald(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min; 
-}
-	 var emerald = rngEmerald(1, 12);
+// Random number for emerald
+var emerald = Math.floor((Math.random()*12) + 1);
+
+// Counters for W/L, and scores
+var playerScore;
+var scoreBoard;
+var wins = 0;
+var losses = 0;
+
+var reset = function(){
+	targetScore = Math.floor((Math.random()*101) + 19);
+	ruby = Math.floor((Math.random()*12) + 1);
+	diamond = Math.floor((Math.random()*12) + 1);
+	topaz = Math.floor((Math.random()*12) + 1);
+	emerald = Math.floor((Math.random()*12) + 1);
+	playerScore = 0;
+	scoreBoard = 0;
+};
+// created a function for W/L to be used later
+var calculations = function(){
+	if(playerScore === targetScore){
+		wins ++;
+		alert("You Won");
+		$("#wins").text("Wins:" + wins);
+		reset ();
+	}
+
+	else if (playerScore > targetScore){
+		losses++;
+		alert("You Lost");
+		$("#losses").text("Losses:" + losses)
+		reset();
+
+	}
+
+};
+
+
+// funtions to give values to the crystals and score Addition
+$(document).ready(function(){
+
+	$("#targetScore").html("<h1> Collect this many!:</h1>" +targetScore);
+		reset();
+//clicks for ruby
+	$("#ruby").click(function(){
+		playerScore = playerScore + ruby;
+		$("#scoreBoard").html("<h1> You have collected: </h1>" +playerScore);
+		calculations();
 		
 
-	//Random numbers for crystals
-	var wins = 0
-	var losses = 0
-	// counter for the wins and losses 
+	})
 
+//clicks for diamond
+	$("#diamond").click(function(){
+		playerScore = playerScore + diamond;
+		$("#scoreBoard").html("<h1> You have collected: </h1>" +playerScore);
+		calculations();
+		
 
-	$("#ruby").click(function() {
+	})
+	
 
-		console.log(ruby);
+//clicks for topaz
+	$("#topaz").click(function(){
+		playerScore = playerScore + topaz;
+		$("#scoreBoard").html("<h1> You have collected: </h1>" +playerScore);
+		calculations();
+		
+	})
 
-
-	});
-
-
-
-
+//clicks for emerald
+	$("#emerald").click(function(){
+		playerScore = playerScore + emerald;
+		$("#scoreBoard").html("<h1> You have collected: </h1>" +playerScore);
+		calculations();
+		
+	})
 });
